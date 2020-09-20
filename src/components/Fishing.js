@@ -1,51 +1,65 @@
 import React, { useState } from 'react'
 import './FishingStyle.css'
 
+let waiting = false
 let hooked = false
 
 const randomTime = (min, max) => {
     const time = Math.floor(Math.random()*(max-min+1)+min);
-    console.log(`Fish will bite in ${time/1000} seconds.`)
-    return time
+    console.log("Casting line...")
+    console.log("Waiting for a bite...")
+    return time;
 }
 
-// const fishHooked = () => {
-    
-    
-// }
-
 const cast = () => {
-    console.log("Casting line...")
+    if (waiting) {
+        console.log("You must reel in your hook before you may cast again")
+        return;
+    }
+    waiting = true
     setTimeout(() => {
-        console.log(`You have a bite!`)
-        let interval = setInterval(() => {
-            console.log(`fishHooked - hooked = ${hooked}`)
-            hooked = true;
+        if (!waiting) return;
+        console.log(`You have a bite! Catch it!`);
+        hooked = true;
+        setInterval(() => {
             setTimeout(() => {
+                if (!hooked) {
+                    return;
+                };
+                console.log("It got away...")
+                waiting = false
                 hooked = false;
-                clearInterval(interval)
-            }, 3000)
-        }, 1)
-    }, randomTime(7000, 9000))
+            }, 700)
+        })
+    }, randomTime(7000, 35000))    
 }
 
 export default function Fishing() {
     const [fish, catchFish] = useState(0);
-    console.log(hooked)    
+
+    const reelIn = () => {
+        if (!waiting) {
+            alert("You have not cast your line out!")
+            return
+        }
+        if (waiting && !hooked) {
+            console.log("You reel in your hook with no success.")
+            waiting = false
+            return
+        }
+        console.log("You caught a fish!")
+        hooked = false
+        waiting = false
+        return catchFish(fish + 1)
+    }
 
     return (
         <div className="Fishing-Container">
-            <div className="Fishing-Viewport" onClick={() => catchFish(fish + 1)} />
+            <div className="Fishing-Viewport" onClick={reelIn} />
             <div className="Fishing-Dashboard" >
                 <p>Caught: {fish} 🐟</p>
                 <button onClick={cast}>Cast</button>
-                {hooked ? 
-                    <button onClick={() => catchFish(fish + 1)}>Catch</button> 
-                    : 
-                    <button onClick={() => console.log("Fish is not hooked")}>Catch</button>
-                }
-                
-
+                <button onClick={reelIn}>Reel In</button>
             </div>
         </div>
     )
