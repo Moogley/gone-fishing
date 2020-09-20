@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/gone-fishing/static/css/main.484757ca.chunk.css",
+    "main.js": "/gone-fishing/static/js/main.bbe25528.chunk.js",
+    "main.js.map": "/gone-fishing/static/js/main.bbe25528.chunk.js.map",
+    "runtime-main.js": "/gone-fishing/static/js/runtime-main.dcbb61ce.js",
+    "runtime-main.js.map": "/gone-fishing/static/js/runtime-main.dcbb61ce.js.map",
+    "static/js/2.e3c1e765.chunk.js": "/gone-fishing/static/js/2.e3c1e765.chunk.js",
+    "static/js/2.e3c1e765.chunk.js.map": "/gone-fishing/static/js/2.e3c1e765.chunk.js.map",
+    "index.html": "/gone-fishing/index.html",
+    "precache-manifest.9b432a3fce97c4c4c4a6781765a12695.js": "/gone-fishing/precache-manifest.9b432a3fce97c4c4c4a6781765a12695.js",
+    "service-worker.js": "/gone-fishing/service-worker.js",
+    "static/css/main.484757ca.chunk.css.map": "/gone-fishing/static/css/main.484757ca.chunk.css.map",
+    "static/js/2.e3c1e765.chunk.js.LICENSE.txt": "/gone-fishing/static/js/2.e3c1e765.chunk.js.LICENSE.txt",
+    "static/media/FishingStyle.css": "/gone-fishing/static/media/GFDock.dd06db96.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.dcbb61ce.js",
+    "static/js/2.e3c1e765.chunk.js",
+    "static/css/main.484757ca.chunk.css",
+    "static/js/main.bbe25528.chunk.js"
+  ]
+}
