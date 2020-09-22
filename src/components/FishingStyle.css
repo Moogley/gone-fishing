@@ -6,7 +6,7 @@
     margin: 10px;
     padding: 3px;
     border: 1px solid black;
-    height: 200px;
+    height: 225px;
     width: 350px;
 }
 
@@ -15,9 +15,18 @@
     align-items: center;
     justify-content: center;
     border: 1px solid black;
-    width: 97%;
-    height: 80%;
+    width: 341.5px;
+    height: 162px;
     background-image: url("../img/GFDock.png")
+}
+
+.Hook-Status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 341.5px;
+    height: 20px;
 }
 
 .Fishing-Dashboard {
@@ -25,6 +34,6 @@
     align-items: center;
     justify-content: space-around;
     border: 1px solid black;
-    width: 97%;
-    height: 14%;
+    width: 341.5px;
+    height: 30px;
 }

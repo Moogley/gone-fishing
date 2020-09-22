@@ -1,41 +1,53 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './FishingStyle.css'
 
-let waiting = false
-let hooked = false
-
-const randomTime = (min, max) => {
-    const time = Math.floor(Math.random()*(max-min+1)+min);
-    console.log("Casting line...")
-    console.log("Waiting for a bite...")
-    return time;
-}
-
-const cast = () => {
-    if (waiting) {
-        console.log("You must reel in your hook before you may cast again")
-        return;
-    }
-    waiting = true
-    setTimeout(() => {
-        if (!waiting) return;
-        console.log(`You have a bite! Catch it!`);
-        hooked = true;
-        setInterval(() => {
-            setTimeout(() => {
-                if (!hooked) {
-                    return;
-                };
-                console.log("It got away...")
-                waiting = false
-                hooked = false;
-            }, 700)
-        })
-    }, randomTime(7000, 35000))    
-}
 
 export default function Fishing() {
     const [fish, catchFish] = useState(0);
+    const [waiting, setWaiting] = useState(false)
+    const [hooked, setHook] = useState(false)
+    const [message, setMessage] = useState("Bait your hook")
+
+
+    const randomTime = (min, max) => {
+        const time = Math.floor(Math.random()*(max-min+1)+min);
+        console.log(time/1000)
+        return time;
+    }
+
+
+    const cast = () => {
+        if (waiting) {
+            setMessage("Reel in to cast again")
+            return;
+        }
+        setMessage("Waiting for a bite...")
+        setWaiting(true)    
+    }
+
+
+    useEffect(() => {
+    if (!waiting) return;
+        setTimeout(() => {
+            setMessage("A bite! Catch it!")
+            if (!waiting) return;
+            setHook(true);
+        }, randomTime(7000, 10000))
+    }, [waiting])
+
+    useEffect(() => {
+    
+        let catchTime = setTimeout(() => {
+            setMessage("It got away...")
+            setWaiting(false)
+            setHook(false);
+        }, 700)
+        if (!waiting || !hooked) {
+            clearTimeout(catchTime)
+            return
+        }
+    }, [hooked, waiting])
+
 
     const reelIn = () => {
         if (!waiting) {
@@ -43,19 +55,23 @@ export default function Fishing() {
             return
         }
         if (waiting && !hooked) {
-            console.log("You reel in your hook with no success.")
-            waiting = false
+            setMessage("You reel in your hook with no success.")
+            setWaiting(false)
             return
         }
-        console.log("You caught a fish!")
-        hooked = false
-        waiting = false
+        setWaiting(false)
+        setHook(false)
+        setMessage("Nice catch!")
         return catchFish(fish + 1)
     }
+
 
     return (
         <div className="Fishing-Container">
             <div className="Fishing-Viewport" onClick={reelIn} />
+            <div className="Hook-Status">
+                <p>{message}</p>
+            </div>
             <div className="Fishing-Dashboard" >
                 <p>Caught: {fish} 🐟</p>
                 <button onClick={cast}>Cast</button>
